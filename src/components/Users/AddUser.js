@@ -16,15 +16,24 @@ const AddUser = (props) => {
 
   const addUserHandler = (event) => {
     event.preventDefault();
-    console.log(enteredUsername);
+    if (enteredUsername.trim() === "" || enteredAge === "") {
+      alert("Username and age cannot be empty");
+      return;
+    } else if (+enteredAge < 1) {
+      alert("age cannot be less than 1");
+      return;
+    }
+    console.log(enteredUsername, enteredAge);
+    setEnteredUsername('');
+    setEnteredAge('');
   };
   return (
     <Card className={classes.input}>
       <form onSubmit={addUserHandler}>
         <label htmlFor="username">Username</label>
-        <input type="text" id="username" onChange={usernameChangeHandler} />
+        <input type="text" id="username" value={enteredUsername} onChange={usernameChangeHandler} />
         <label htmlFor="age">Age (Years)</label>
-        <input type="number" id="age" onChange={ageChangeHandler} />
+        <input type="number" id="age" value={enteredAge} onChange={ageChangeHandler} />
         <Button type="submit">Add User</Button>
       </form>
     </Card>
